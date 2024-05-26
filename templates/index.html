@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <title>Biblioteca</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Bem-vindo à Biblioteca</h1>
+    <form action="{{ url_for('main.pesquisar') }}" method="post">
+        <input type="text" name="titulo" placeholder="Digite o título do livro">
+        <input type="submit" value="Pesquisar">
+    </form>
+    <h2>Lista de Livros</h2>
+    <ul>
+    {% for livro in livros %}
+        <li>{{ livro.titulo }} - {{ 'Disponível' if livro.disponivel else 'Requisitado por ' ~ livro.requisitado_por }}</li>
+    {% endfor %}
+    </ul>
+    <br>
+    <a href="{{ url_for('main.adicionar') }}">Adicionar Novo Livro</a>
+</body>
+</html>
