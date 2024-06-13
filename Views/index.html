@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo à Biblioteca</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+<h1>Bem-vindo à Biblioteca</h1>
+<ul>
+    <li>
+        <a href="{{ url_for('main.pesquisar') }}">Pesquisar Livro</a>
+    </li>
+    <li>
+        <a href="{{ url_for('main.requisitar') }}">Requisitar Livro</a>
+    </li>
+    <li>
+        <a href="{{ url_for('main.entregar') }}">Entregar Livro</a>
+    </li>
+</ul>
+<a href="{{ url_for('main.logout') }}">Logout</a>
+<!--<h2>Lista de Livros</h2>
+    <ul>
+    {% for livro in livros %}
+        <li>{{ livro.titulo }} - {{ 'Disponi­vel' if livro.disponivel else 'Requisitado'}}</li>
+    {% endfor %}
+    </ul>
+    <br>-->
+</body>
+</html>
