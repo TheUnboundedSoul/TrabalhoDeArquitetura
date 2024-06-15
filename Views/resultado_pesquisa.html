@@ -19,9 +19,9 @@
 <h1>Resultado da Pesquisa</h1>
 <a href="{{ url_for('main.pesquisar') }}">Nova Pesquisa</a> <a href="{{ url_for('main.index') }}">Voltar</a>
 <ul>
-    {% for livro in livros %}
-        <li>{{ livro.titulo }} - {{ livro.autor }} - {{ 'Disponível' if livro.disponivel else 'Requisitado' }}</li>
-    {% endfor %}
+  {% for livro in livros %}
+      <li>{{ livro.titulo }} - {{ livro.autor }}  - {{ 'Estante nº '}} {{ livro.estante }} - {{ 'Disponível' if livro.disponivel else 'Requisitado' }} - {{'ID Livro nº ' }} {{ livro.id }}</li>
+  {% endfor %}
 </ul>
 
 </body>

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, session, flash
-from Models.models import Livro, Utilizador
+from Models.livroModel import Livro
+from Models.utilizadorModel import Utilizador
 from extensions import db
 
 # Decorator para verificar se o usuário está autenticado
@@ -93,7 +94,7 @@ def entregar():
         id_livro = request.form['id_livro']
         livro = Livro.get_by_id(id_livro)
         if livro and livro.entregar():
-            flash(f'Livro {livro.titulo} entregue com sucesso! Coloque na estante correspondente.', 'success')
+            flash(f'Livro {livro.titulo} entregue com sucesso! Coloque na estante {livro.estante}.', 'success')
         else:
             flash('Livro não encontrado ou já entregue.', 'danger')
     return render_template('entregar.html')
