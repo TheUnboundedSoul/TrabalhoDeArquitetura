@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, session, flash
 from Models.livroModel import Livro
-from Models.utilizadorModel import Utilizador
+from Models.utilizadorModel import Utilizador, UtilizadorValidator, PasswordValidationStrategy
 from extensions import db
 
 # Decorator para verificar se o usuário está autenticado
@@ -47,14 +47,24 @@ def add_user():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        
         if Utilizador.get_by_username(username):
             flash('Nome de usuário já existe', 'danger')
         else:
-            new_user = Utilizador.create(username, password)
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Usuário adicionado com sucesso', 'success')
-            return redirect(url_for('main.login'))
+            # Validando a senha utilizando UtilizadorValidator
+            validator = UtilizadorValidator(PasswordValidationStrategy())
+            is_valid_password = validator.validate_password(password)
+            print(f'A senha do utilizador é válida: {is_valid_password}')
+            
+            if is_valid_password:
+                new_user = Utilizador.create(username, password)
+                db.session.add(new_user)
+                db.session.commit()
+                flash('Usuário adicionado com sucesso', 'success')
+                return redirect(url_for('main.login'))
+            else:
+                flash('A senha não atende aos requisitos mínimos', 'danger')
+
     return render_template('add_user.html')
 
 @main_bp.route('/pesquisar', methods=['GET', 'POST'])
