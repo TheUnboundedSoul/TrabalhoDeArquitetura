@@ -9,35 +9,31 @@
 <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-        <ul class=flashes>
+        <ul class="flashes">
         {% for category, message in messages %}
         <li class="{{ category }}">{{ message }}</li>
         {% endfor %}
         </ul>
     {% endif %}
     {% endwith %}
-<h1>Bem-vindo à Biblioteca</h1>
-<ul>
-    <li>
-        <a href="{{ url_for('main.pesquisar') }}">Pesquisar Livro</a>
-    </li>
-    <li>
-        <a href="{{ url_for('main.requisitar') }}">Requisitar Livro</a>
-    </li>
-    <li>
-        <a href="{{ url_for('main.entregar') }}">Entregar Livro</a>
-    </li>
-    <li>
-        <a href="{{ url_for('main.adicionar') }}">Adicionar Livro</a>
-    </li>
-</ul>
-<a href="{{ url_for('main.logout') }}">Logout</a>
-<!--<h2>Lista de Livros</h2>
+    <h1>Bem-vindo à Biblioteca</h1>
     <ul>
-    {% for livro in livros %}
-        <li>{{ livro.titulo }} - {{ 'Disponi­vel' if livro.disponivel else 'Requisitado'}}</li>
-    {% endfor %}
+        <li>
+            <a href="{{ url_for('main.pesquisar') }}">Pesquisar Livro</a>
+        </li>
+        <li>
+            <a href="{{ url_for('main.requisitar') }}">Requisitar Livro</a>
+        </li>
+        <li>
+            <a href="{{ url_for('main.entregar') }}">Entregar Livro</a>
+        </li>
+        <li>
+            <a href="{{ url_for('main.adicionar') }}">Adicionar Livro</a>
+        </li>
+        <li>
+            <a href="{{ url_for('main.remover_livro') }}" style="background-color: red;">Remover Livro</a>
+        </li>
     </ul>
-    <br>-->
+    <a href="{{ url_for('main.logout') }}">Logout</a>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remover Livro</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <h1>Remover Livro</h1>
+    <form action="{{ url_for('main.confirmar_remover') }}" method="post">
+        <label for="livro">Selecione o livro a ser removido:</label>
+        <select id="livro" name="livro_id">
+            {% for livro in livros %}
+                <option value="{{ livro.id }}">{{ livro.titulo }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Remover Livro">
+        <a href="{{ url_for('main.index') }}">Cancelar</a>
+    </form>
+</body>
+</html>

@@ -34,3 +34,6 @@ def render_entregar():
 
 def render_adicionar():
     return render_template('adicionar.html')
+
+def render_remover():
+    return render_template('remover.html')

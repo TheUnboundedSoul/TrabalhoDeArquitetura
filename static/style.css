@@ -124,3 +124,33 @@ button:hover {
 input[type="password"] {
     border-color: #b6d4fe;
 }
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+/* Estilo para as opções dentro do select */
+select option {
+    padding: 8px; /* Espaçamento interno */
+    font-size: 14px;
+}
+/* Estilo para o submit button */
+input[type="submit"] {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: red;
+}

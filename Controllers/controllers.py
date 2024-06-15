@@ -141,3 +141,28 @@ def adicionar():
             flash(f'Erro ao adicionar livro: {str(e)}', 'danger')
     
     return render_template('adicionar.html')
+
+@main_bp.route('/remover_livro', methods=['GET'])
+@login_required
+def remover_livro():
+    livros = Livro.query.all()
+    return render_template('remover.html', livros=livros)
+
+@main_bp.route('/confirmar_remover', methods=['POST'])
+@login_required
+def confirmar_remover():
+    livro_id = request.form.get('livro_id')
+    livro = Livro.get_by_id(livro_id)
+    
+    if not livro:
+        flash('Livro não encontrado.', 'danger')
+    else:
+        try:
+            db.session.delete(livro)
+            db.session.commit()
+            flash(f'Livro "{livro.titulo}" removido com sucesso.', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao remover livro: {str(e)}', 'danger')
+
+    return redirect(url_for('main.index'))
