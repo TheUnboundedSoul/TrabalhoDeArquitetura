@@ -31,3 +31,6 @@ def render_requisitar():
 # Função para renderizar a página de devolução de um livro
 def render_entregar():
     return render_template('entregar.html')
+
+def render_adicionar():
+    return render_template('adicionar.html')

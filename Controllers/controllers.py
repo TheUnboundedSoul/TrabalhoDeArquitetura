@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, redirect, url_for, session, flash
-from Models.livroModel import Livro
+from Models.livroModel import Livro, LivroBuilder
 from Models.utilizadorModel import Utilizador, UtilizadorValidator, PasswordValidationStrategy
 from extensions import db
 
@@ -108,3 +108,36 @@ def entregar():
         else:
             flash('Livro não encontrado ou já entregue.', 'danger')
     return render_template('entregar.html')
+
+
+@main_bp.route('/adicionar', methods=['GET', 'POST'])
+@login_required
+def adicionar():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        autor = request.form['autor']
+        estilo_livro = request.form.get('estilo_livro')
+        estante = request.form.get('estante')
+        
+        # Cria um novo Livro usando LivroBuilder
+        livro_builder = LivroBuilder(titulo, autor)
+        
+        # Define os campos opcionais
+        if estilo_livro:
+            livro_builder.set_estilo_livro(estilo_livro)
+        if estante:
+            livro_builder.set_estante(estante)
+        
+        novo_livro = livro_builder.build()
+        
+        # Adiciona o novo livro ao banco de dados
+        try:
+            db.session.add(novo_livro)
+            db.session.commit()
+            flash('Livro adicionado com sucesso', 'success')
+            return redirect(url_for('main.index'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao adicionar livro: {str(e)}', 'danger')
+    
+    return render_template('adicionar.html')

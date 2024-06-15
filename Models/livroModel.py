@@ -1,6 +1,6 @@
 from extensions import db
 
-# Design Pattern BUILDER
+# Design Patterns - Builder
 
 class Livro(db.Model):
     __tablename__ = 'livro'
@@ -46,7 +46,7 @@ class Livro(db.Model):
 
 class LivroBuilder:
     def __init__(self, titulo, autor):
-        self._livro = Livro(titulo=titulo, autor=autor)
+        self._livro = Livro(titulo=titulo, autor=autor, disponivel=True)
 
     def set_estilo_livro(self, estilo_livro):
         self._livro.estilo_livro = estilo_livro
